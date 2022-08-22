@@ -9,11 +9,13 @@ class PolyDie:
         return f'{self.name} object'
     
 class Characteristic:
-    def __init__(self, name, bonus, *dice):
+    def __init__(self, name, die_sides, num_of_dice, bonus=0):
         self.name = name
         self.bonus = bonus
-        self.dice = dice
-        self.min_score = len(self.dice) + self.bonus
+        self.dice = []
+        for i in range(num_of_dice):
+            self.dice.append(PolyDie(die_sides))
+        self.min_score = num_of_dice + self.bonus
         self.max_score = (len(self.dice) * self.dice[0].sides) + self.bonus
         self.range = f'{self.min_score}-{self.max_score}'
     
@@ -23,18 +25,19 @@ class Characteristic:
 class RacialProfile:
     def __init__(self, name='Human'):
         self.name = name
+        self.strength = Characteristic('Strength', 6, 3)
+        self.dexterity = Characteristic('Dexterity', 6, 3)
+        self.constitution = Characteristic('Constitution', 6, 3)
+        self.size = Characteristic('Size', 6, 2, 6)
+        self.intelligence = Characteristic('Intelligence', 6, 2, 6)
+        self.wisdom = Characteristic('Wisdom', 6, 3)
+        self.charisma = Characteristic('Charisma', 6, 3)
+        self.power = Characteristic('Power', 6, 3)
+        
 
 
-d2 = PolyDie(2)
-d4 = PolyDie(4)
-d6 = PolyDie(6)
-d8 = PolyDie(8)
-d10 = PolyDie(10)
-d12 = PolyDie(12)
-d20 = PolyDie(20)
 
-strength = Characteristic('Strength', 6, d6, d6)
-print(strength)
-print(strength.dice)
-print(strength.range)
-print(strength.bonus)
+intelligence = Characteristic('Intelligence', 6, 2, 6)
+print(intelligence)
+print(intelligence.range)
+print(intelligence.dice)
