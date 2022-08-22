@@ -15,7 +15,6 @@ class Characteristic:
         self.name = name
         self.bonus = bonus
         self.initialize_dice(die_sides, num_of_dice)
-        
     
     def __repr__(self):
         return f'{self.name} characteristic object'
@@ -35,8 +34,11 @@ class Characteristic:
         self.initialize_dice(die_sides, num_of_dice)
         
     def decrement_num_of_dice(self):
-        if len(self.dice) > 1:
-            self.dice.pop()
+        die_sides = self.dice[0].sides
+        num_of_dice = len(self.dice)
+        if num_of_dice > 1:
+            num_of_dice -= 1
+            self.initialize_dice(die_sides, num_of_dice)
         
     def increment_dice_size(self):
         die_sides = self.dice[0].sides
@@ -86,12 +88,12 @@ print(test.strength.avg_score)
 test.strength.increment_num_of_dice()
 print(test.strength.dice)
 print(test.strength.avg_score)
-test.strength.increment_num_of_dice()
+test.strength.increment_dice_size()
 print(test.strength.dice)
 print(test.strength.avg_score)
 test.strength.increment_num_of_dice()
 print(test.strength.dice)
 print(test.strength.avg_score)
-test.strength.increment_num_of_dice()
+test.strength.increment_dice_size()
 print(test.strength.dice)
 print(test.strength.avg_score)
