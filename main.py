@@ -1,4 +1,6 @@
 import itertools
+import matplotlib.pyplot as plt
+import numpy as np
 
 class PolyDie:
     def __init__(self, sides):
@@ -100,7 +102,3 @@ test = RacialProfile()
 print(test.strength.dice)
 test.strength.total_outcome_distribution()
 
-test.strength.increment_dice_size()
-test.strength.increment_dice_size()
-print(test.strength.dice)
-test.strength.total_outcome_distribution()
