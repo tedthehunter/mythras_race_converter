@@ -9,6 +9,10 @@ class PolyDie:
     def __repr__(self):
         return f'{self.name} object'
     
+    def get_range(self):
+        self.range = [i for i in range(self.sides)]
+        return self.range
+    
     
 class Characteristic:
     def __init__(self, name, die_sides, num_of_dice, bonus=0):
@@ -82,18 +86,22 @@ class RacialProfile:
         return f'{self.name} profile object'
         
 
-test = RacialProfile()
-print(test.strength.dice)
-print(test.strength.avg_score)
-test.strength.increment_num_of_dice()
-print(test.strength.dice)
-print(test.strength.avg_score)
-test.strength.increment_dice_size()
-print(test.strength.dice)
-print(test.strength.avg_score)
-test.strength.increment_num_of_dice()
-print(test.strength.dice)
-print(test.strength.avg_score)
-test.strength.increment_dice_size()
-print(test.strength.dice)
-print(test.strength.avg_score)
+# test = RacialProfile()
+# print(test.strength.dice)
+# print(test.strength.avg_score)
+# test.strength.increment_num_of_dice()
+# print(test.strength.dice)
+# print(test.strength.avg_score)
+# test.strength.increment_dice_size()
+# print(test.strength.dice)
+# print(test.strength.avg_score)
+# test.strength.increment_num_of_dice()
+# print(test.strength.dice)
+# print(test.strength.avg_score)
+# test.strength.increment_dice_size()
+# print(test.strength.dice)
+# print(test.strength.avg_score)
+
+test = PolyDie(6)
+for i in range(test.sides):
+    print(i+1)
