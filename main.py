@@ -75,9 +75,10 @@ class Characteristic:
         individual_outcomes = [die.get_all_results() for die in self.dice]
         for i in itertools.product(*individual_outcomes):
             outcome_distribution[sum(i)] += 1
-        print(outcome_distribution)
+        # print(outcome_distribution)
         outcome_distribution_percentage = [round((num/sum(outcome_distribution) * 100), 2) for num in outcome_distribution]
-        print(outcome_distribution_percentage)
+        # print(outcome_distribution_percentage)
+        return outcome_distribution_percentage
 
     
     
@@ -100,5 +101,15 @@ class RacialProfile:
 test = RacialProfile()
 
 print(test.strength.dice)
-test.strength.total_outcome_distribution()
 
+x = [i for i in range(3, 19)]
+labels = [str(x) for x in x]
+y = test.strength.total_outcome_distribution()
+num_bins = len(x)
+
+plt.bar(x, y, tick_label=labels)
+
+plt.xlabel('Possible Roll Results')
+plt.ylabel('Probability')
+
+plt.show()

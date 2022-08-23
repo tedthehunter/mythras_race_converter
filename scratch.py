@@ -1,15 +1,7 @@
-import itertools
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
 
-def possible_combinations(list_of_lists):
-    results = []
-    for i in itertools.product(*list_of_lists):
-        results.append(sum(i))
-    return results
-        
-test1 = [i for i in range(6)]
-test2 = [i for i in range(6)]
-test3 = [i for i in range(6)]
-
-test4 = [test1, test2, test3]
-  
-# possible_combinations(test4)
+x = np.linspace(0, 20, 100)
+plt.plot(x, np.sin(x))
+plt.show()
