@@ -125,16 +125,27 @@ class RacialProfile:
         return f'{self.name} profile object'
     
     def display_all_characteristic_distribution(self):
-        self.strength
-        self.dexterity
-        self.constitution
-        self.size
-        self.intelligence
-        self.wisdom
-        self.charisma
-        self.power
+        strength = self.strength.total_outcome_distribution()
+        dexterity = self.dexterity.total_outcome_distribution()
+        constitution = self.constitution.total_outcome_distribution()
+        size = self.size.total_outcome_distribution()
+        intelligence = self.intelligence.total_outcome_distribution()
+        wisdom = self.wisdom.total_outcome_distribution()
+        charisma = self.charisma.total_outcome_distribution()
+        power = self.power.total_outcome_distribution()
+        
+        x_ticks = [i for i in range(3, 18)]
+        x_labels = [str(num) for num in x_ticks]
+        
+        plt.bar(list(self.strength.range), strength, width=0.4, label = 'Strength')
+        plt.bar(list(self.dexterity.range), dexterity, width=0.4, label = 'Dexterity')
+        # plt.bar(x_ticks, intelligence, width=0.4, label='Intelligence')
+        
+        plt.legend()
+        
+        plt.show()
         
 
 test = RacialProfile()
 
-test.intelligence.display_characteristic_distribution()
+test.display_all_characteristic_distribution()
