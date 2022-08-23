@@ -82,15 +82,15 @@ class Characteristic:
         self.initialize_dice(die_sides, num_of_dice)
     
     def total_outcome_distribution(self):
-        outcome_distribution = [0 for i in range(len(self.dice), (len(self.dice) * self.dice[0].sides) + 1)]
+        outcome_distribution = [0 for i in range(31)]
         individual_outcomes = [die.get_all_results() for die in self.dice]
         for i in itertools.product(*individual_outcomes):
-            outcome_distribution[sum(i)] += 1
+            outcome_distribution[sum(i) + self.min_score] += 1
         outcome_distribution_percentage = [round((num/sum(outcome_distribution) * 100), 2) for num in outcome_distribution]
         return outcome_distribution_percentage
     
     def display_characteristic_distribution(self):
-        x_ticks = [i for i in range(self.min_score, self.max_score + 1)]
+        x_ticks = [i for i in range(31)]
         x_labels = [str(num) for num in x_ticks]
         
         y_data = self.total_outcome_distribution()
@@ -134,12 +134,12 @@ class RacialProfile:
         charisma = self.charisma.total_outcome_distribution()
         power = self.power.total_outcome_distribution()
         
-        x_ticks = [i for i in range(3, 18)]
+        x_ticks = [i for i in range(31)]
         x_labels = [str(num) for num in x_ticks]
         
-        plt.bar(list(self.strength.range), strength, width=0.4, label = 'Strength')
-        plt.bar(list(self.dexterity.range), dexterity, width=0.4, label = 'Dexterity')
-        # plt.bar(x_ticks, intelligence, width=0.4, label='Intelligence')
+        plt.bar(x_ticks, strength, width=0.4, label = 'Strength')
+        # plt.bar(list(self.dexterity.range), dexterity, width=0.4, label = 'Dexterity')
+        plt.bar(x_ticks, intelligence, width=0.4, label='Intelligence')
         
         plt.legend()
         
@@ -149,3 +149,4 @@ class RacialProfile:
 test = RacialProfile()
 
 test.display_all_characteristic_distribution()
+# test.strength.display_characteristic_distribution()
