@@ -86,11 +86,27 @@ class Characteristic:
         individual_outcomes = [die.get_all_results() for die in self.dice]
         for i in itertools.product(*individual_outcomes):
             outcome_distribution[sum(i)] += 1
-        # print(outcome_distribution)
         outcome_distribution_percentage = [round((num/sum(outcome_distribution) * 100), 2) for num in outcome_distribution]
-        # print(outcome_distribution_percentage)
         return outcome_distribution_percentage
-
+    
+    def display_characteristic_distribution(self):
+        x_ticks = [i for i in range(self.min_score, self.max_score + 1)]
+        x_labels = [str(num) for num in x_ticks]
+        
+        y_data = self.total_outcome_distribution()
+        y_ticks = [num for num in y_data]
+        y_labels = [f'{num}%' for num in y_data]
+        
+        plt.bar(x_ticks, y_data)
+        
+        plt.title(f'{self.name} Roll Distribution')
+        plt.xlabel('Possible Roll Results')
+        plt.ylabel('Probability')
+        
+        plt.xticks(x_ticks, x_labels)
+        plt.yticks(y_ticks, y_labels)
+        
+        plt.show()
     
     
 class RacialProfile:
@@ -107,33 +123,18 @@ class RacialProfile:
         
     def __repr__(self):
         return f'{self.name} profile object'
+    
+    def display_all_characteristic_distribution(self):
+        self.strength
+        self.dexterity
+        self.constitution
+        self.size
+        self.intelligence
+        self.wisdom
+        self.charisma
+        self.power
         
 
 test = RacialProfile()
 
-print(test.strength.dice)
-
-test.strength.decrement_bonus()
-test.strength.decrement_bonus()
-test.strength.decrement_bonus()
-test.strength.decrement_bonus()
-test.strength.decrement_bonus()
-
-x = [i for i in range(test.strength.min_score, test.strength.max_score + 1)]
-x_labels = [str(x) for x in x]
-y = test.strength.total_outcome_distribution()
-num_bins = len(x)
-y_labels = [f'{num}%' for num in y]
-y_ticks = [num for num in y]
-
-plt.bar(x, y, tick_label=x_labels)
-
-plt.title('Strength Roll Distribution')
-# plt.legend()
-
-plt.xlabel('Possible Roll Results')
-plt.ylabel('Probability')
-
-plt.yticks(y_ticks, y_labels)
-
-plt.show()
+test.intelligence.display_characteristic_distribution()
