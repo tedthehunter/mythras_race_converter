@@ -1,4 +1,4 @@
-
+import itertools
 
 class PolyDie:
     def __init__(self, sides):
@@ -9,9 +9,9 @@ class PolyDie:
     def __repr__(self):
         return f'{self.name} object'
     
-    def get_range(self):
-        self.range = [i for i in range(self.sides)]
-        return self.range
+    def get_all_results(self):
+        self.results = [i for i in range(self.sides)]
+        return self.results
     
     
 class Characteristic:
@@ -67,7 +67,16 @@ class Characteristic:
             self.initialize_dice(die_sides, num_of_dice)
         else:
             return f'Dice size at minimum!'
-        
+    
+    def total_outcome_distribution(self):
+        outcome_distribution = [0 for i in range(len(self.dice), (len(self.dice) * self.dice[0].sides) + 1)]
+        individual_outcomes = [die.get_all_results() for die in self.dice]
+        for i in itertools.product(*individual_outcomes):
+            outcome_distribution[sum(i)] += 1
+        print(outcome_distribution)
+        outcome_distribution_percentage = [round((num/sum(outcome_distribution) * 100), 2) for num in outcome_distribution]
+        print(outcome_distribution_percentage)
+
     
     
 class RacialProfile:
@@ -86,22 +95,12 @@ class RacialProfile:
         return f'{self.name} profile object'
         
 
-# test = RacialProfile()
-# print(test.strength.dice)
-# print(test.strength.avg_score)
-# test.strength.increment_num_of_dice()
-# print(test.strength.dice)
-# print(test.strength.avg_score)
-# test.strength.increment_dice_size()
-# print(test.strength.dice)
-# print(test.strength.avg_score)
-# test.strength.increment_num_of_dice()
-# print(test.strength.dice)
-# print(test.strength.avg_score)
-# test.strength.increment_dice_size()
-# print(test.strength.dice)
-# print(test.strength.avg_score)
+test = RacialProfile()
 
-test = PolyDie(6)
-for i in range(test.sides):
-    print(i+1)
+print(test.strength.dice)
+test.strength.total_outcome_distribution()
+
+test.strength.increment_dice_size()
+test.strength.increment_dice_size()
+print(test.strength.dice)
+test.strength.total_outcome_distribution()
