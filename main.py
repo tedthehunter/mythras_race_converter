@@ -1,6 +1,5 @@
 import itertools
 import matplotlib.pyplot as plt
-import numpy as np
 
 class PolyDie:
     def __init__(self, sides):
@@ -31,7 +30,7 @@ class Characteristic:
             self.dice.append(PolyDie(die_sides))
         self.min_score = num_of_dice + self.bonus
         self.max_score = (len(self.dice) * self.dice[0].sides) + self.bonus
-        self.range = f'{self.min_score}-{self.max_score}'
+        self.range = range(self.min_score, self.max_score)
         self.avg_score = self.dice[0].avg * num_of_dice
     
     def increment_num_of_dice(self):
@@ -69,6 +68,18 @@ class Characteristic:
             self.initialize_dice(die_sides, num_of_dice)
         else:
             return f'Dice size at minimum!'
+        
+    def increment_bonus(self):
+        die_sides = self.dice[0].sides
+        num_of_dice = len(self.dice)
+        self.bonus += 1
+        self.initialize_dice(die_sides, num_of_dice)
+        
+    def decrement_bonus(self):
+        die_sides = self.dice[0].sides
+        num_of_dice = len(self.dice)
+        self.bonus -= 1
+        self.initialize_dice(die_sides, num_of_dice)
     
     def total_outcome_distribution(self):
         outcome_distribution = [0 for i in range(len(self.dice), (len(self.dice) * self.dice[0].sides) + 1)]
@@ -102,14 +113,27 @@ test = RacialProfile()
 
 print(test.strength.dice)
 
-x = [i for i in range(3, 19)]
-labels = [str(x) for x in x]
+test.strength.decrement_bonus()
+test.strength.decrement_bonus()
+test.strength.decrement_bonus()
+test.strength.decrement_bonus()
+test.strength.decrement_bonus()
+
+x = [i for i in range(test.strength.min_score, test.strength.max_score + 1)]
+x_labels = [str(x) for x in x]
 y = test.strength.total_outcome_distribution()
 num_bins = len(x)
+y_labels = [f'{num}%' for num in y]
+y_ticks = [num for num in y]
 
-plt.bar(x, y, tick_label=labels)
+plt.bar(x, y, tick_label=x_labels)
+
+plt.title('Strength Roll Distribution')
+# plt.legend()
 
 plt.xlabel('Possible Roll Results')
 plt.ylabel('Probability')
+
+plt.yticks(y_ticks, y_labels)
 
 plt.show()
