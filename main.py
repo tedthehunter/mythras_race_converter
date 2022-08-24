@@ -137,6 +137,9 @@ class RacialProfile:
         x_ticks = [i for i in range(31)]
         x_labels = [str(num) for num in x_ticks]
         
+        def myFunc(num):
+            return num + 0.4
+        
         plt.bar(x_ticks, strength, width=0.4, label = 'Strength')
         # plt.bar(list(self.dexterity.range), dexterity, width=0.4, label = 'Dexterity')
         plt.bar(x_ticks, intelligence, width=0.4, label='Intelligence')
